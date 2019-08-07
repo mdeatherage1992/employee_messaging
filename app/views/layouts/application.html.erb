@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Employee Messaging</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div id="logo" class="navbar-brand"><%= link_to "Employee Messaging", root_path %></div>
+          <% if user_signed_in? -%>
+            <ul class="navbar-nav mr-auto">
+              <li class='nav-item'><%= link_to 'Account', edit_user_registration_path, class:'nav-link'  %></li>
+              <li class='nav-item'><%= link_to 'Sign out', destroy_user_session_path, :method => :delete , class:'nav-link' %></li>
+              <li class='nav-item'><%= link_to 'Send a Message', new_message_path, class:'nav-link'  %></li>
+            </ul>
+          <% else -%>
+            <ul class="navbar-nav mr-auto">
+              <li class='nav-item'><%= link_to 'Sign up', new_user_registration_path, class:'nav-link' %></li>
+              <li class='nav-item'><%= link_to 'Sign in', new_user_session_path, class:'nav-link'  %></li>
+            </ul>
+          <% end -%>
+        </nav>
+        <% flash.each do |name, msg| %>
+         <%= content_tag(:div, msg, class: "alert alert-info") %>
+       <% end %>
+    <%= yield %>
+  </body>
+</html>

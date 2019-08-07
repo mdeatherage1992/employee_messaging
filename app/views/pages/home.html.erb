@@ -1,0 +1,58 @@
+<% if user_signed_in? %>
+<center>
+<h1>Inbox</h1>
+<table class="table">
+<thead>
+<tr>
+<th>
+  Message
+</th>
+<th>
+  From
+</th>
+<th>
+  Time
+</th>
+</tr>
+</thead>
+<tbody>
+  <% @inbox.each do |msg| %>
+  <tr>
+  <td><%= link_to msg.body, message_path(msg.id)%></td>
+  <td><%= User.find(msg.sender_id).email%></td>
+  <td><%= time_ago_in_words(msg.created_at)%></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>
+<h1>Sent Emails</h1>
+<table class="table">
+<thead>
+<tr>
+<th>
+  Message
+</th>
+<th>
+  To
+</th>
+<th>
+  Time
+</th>
+</tr>
+</thead>
+<tbody>
+<% @sent.each do |msg| %>
+<tr>
+<td><%= link_to msg.body, message_path(msg.id)%></td>
+<td><%= User.find(msg.recipient_id).email%></td>
+<td><%= time_ago_in_words(msg.created_at)%></td>
+</tr>
+<% end %>
+</tbody>
+</table>
+</center>
+<% else %>
+<center>
+  <h3>Welcome to the User Messaging Center. Please Sign up or Sign in to Message your co-workers</h3>
+</center>
+<% end %>

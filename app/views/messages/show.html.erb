@@ -1,0 +1,8 @@
+<center>
+  <h3>Message from <%= User.find_by(id: @message.sender_id).email%></h3>
+  <ul>
+    <li><b>Sent to: </b><%= User.find_by(id: @message.recipient_id).email%> </li>
+    <li><b>Body: </b><%= @message.body%></li>
+    <li><b>When: </b><%= time_ago_in_words(@message.created_at)%></li>
+  </ul>
+</center>
